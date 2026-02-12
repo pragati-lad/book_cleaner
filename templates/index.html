@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pro Book Cleaner</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f6f8;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input {
+            padding: 8px;
+            width: 200px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        pre {
+            text-align: left;
+            background: #eee;
+            padding: 10px;
+            max-height: 300px;
+            overflow: auto;
+        }
+        .stats {
+            background: #e8f5e9;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📚 Book Profanity Cleaner</h1>
+
+    <form method="POST">
+        <input list="books" name="book_key" placeholder="Enter book key..." required>
+        <datalist id="books">
+            <option value="pride">
+            <option value="moby">
+            <option value="frankenstein">
+            <option value="dracula">
+            <option value="sherlock">
+            <option value="alice">
+            <option value="tomsawyer">
+            <option value="montecristo">
+            <option value="doriangray">
+        </datalist>
+        <button type="submit">Fetch & Clean</button>
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% if stats %}
+    <div class="stats">
+        <p><b>Total Words:</b> {{ stats.total_words }}</p>
+        <p><b>Profanity Found:</b> {{ stats.bad_count }}</p>
+        <p><b>Profanity Percentage:</b> {{ stats.percentage }}%</p>
+    </div>
+    {% endif %}
+
+    {% if preview %}
+        <h2>Preview:</h2>
+        <pre>{{ preview }}</pre>
+        <a href="/download/{{ request.form.book_key }}">
+            <button>Download Clean Version</button>
+        </a>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
